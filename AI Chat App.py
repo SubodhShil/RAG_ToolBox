@@ -1,6 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import requests
+
+# Initialize session state for LLM selection
+if 'selected_llm' not in st.session_state:
+    st.session_state.selected_llm = 'gemini'  # Default LLM
 
 st.markdown("""
 <style>
@@ -200,11 +205,44 @@ with col2:
         unsafe_allow_html=True
     )
 
+
+# Fourth row with Plagiarism Checker
+with col1:
+    st.markdown(
+        gradient_div(
+            "Plagiarism Checker",
+            "linear-gradient(to right, #3A1C71, #D76D77)",
+            "/Plagiarism_Checker"
+        ),
+        unsafe_allow_html=True
+    )
+
+
 # Sidebar
+st.sidebar.title("Settings")
+
+# Get all available pages
+pages = [
+    "AI_Art", 
+    "Grammar_Check", 
+    "Image_To_Text", 
+    "Multi_Modal_AI", 
+    "Resume_Maker", 
+    "Voice_AI", 
+    "Plagiarism_Checker"
+]
+
+# API Methods section
 api_method = st.sidebar.selectbox(
     '### API Methods',
     ('Freemium', 'Your Own API')
 )
+
+# Function to update the selected LLM in session state
+def update_llm(model_name):
+    # Convert model name to lowercase for API endpoint
+    st.session_state.selected_llm = model_name.lower()
+    st.sidebar.success(f"Selected model: {model_name}")
 
 
 if api_method == 'Freemium':
@@ -212,8 +250,20 @@ if api_method == 'Freemium':
         'Select Model',
         ('Gemini', 'Mistral', 'DeepSeek')
     )
-    st.sidebar.write(f"Selected model: {model}")
+    
+    # Update the selected LLM when the model changes
+    if st.sidebar.button("Set Model"):
+        update_llm(model)
+    
+    st.sidebar.write(f"Current model: {st.session_state.selected_llm}")
+    
+    # Display API endpoint information
+    st.sidebar.subheader("API Endpoint")
+    st.sidebar.code(f"http://localhost:8000/{st.session_state.selected_llm}/check_grammar")
 
 else:
     api_input = st.sidebar.text_input(
         "Enter your API key", key="api_input", type="password")
+    
+    if st.sidebar.button("Set API Key"):
+        st.sidebar.success("API Key set successfully!")
