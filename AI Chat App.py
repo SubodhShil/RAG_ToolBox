@@ -5,7 +5,7 @@ import requests
 
 # Initialize session state for LLM selection
 if 'selected_llm' not in st.session_state:
-    st.session_state.selected_llm = 'gemini'  # Default LLM
+    st.session_state.selected_llm = 'gemini'
 
 st.markdown("""
 <style>

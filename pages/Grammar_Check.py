@@ -17,16 +17,22 @@ def check_grammar(text, llm="gemini"):
     except Exception as e:
         return {"error": str(e)}
 
+
 if st.button("Find Grammatical Mistakes"):
     if user_text:
         with st.spinner("Checking grammar..."):
-            fixed_grammar = check_grammar(user_text, "gemini")
+
+            # Initialize session state for LLM selection
+            if 'selected_llm' not in st.session_state:
+                st.session_state.selected_llm = 'gemini'
+
+            fixed_grammar = check_grammar(user_text, st.session_state.selected_llm)
 
             if "error" in fixed_grammar:
                 st.error(f"Error: {fixed_grammar['error']}")
             else:
                 st.subheader("Results:")
-                
+
                 # Original vs Corrected Text
                 col1, col2 = st.columns(2)
                 
