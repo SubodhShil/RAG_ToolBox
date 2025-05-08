@@ -11,6 +11,7 @@ def check_grammar(text, llm="gemini"):
     try:
         response = requests.post(
             f"https://langchain-grammar-check-api.onrender.com/{llm}/check_grammar",
+            # f"http://localhost:8000/{llm}/check_grammar",
             json={"text": text}
         )
         return response.json()
@@ -61,6 +62,24 @@ if st.button("Find Grammatical Mistakes"):
                             
                             st.markdown("**Explanation:**")
                             st.markdown(f"_{correction['explanation']}_")
+                            
+                            # Add Grammar Rule section if available
+                            if 'grammar_rule' in correction and correction['grammar_rule']:
+                                # Instead of nesting an expander, display the grammar rule directly
+                                st.markdown("**Grammar Rule:**")
+                                rule = correction['grammar_rule']
+                                st.markdown(f"**{rule['rule_name']}**")
+                                st.markdown(rule['description'])
+                                
+                                # Display correct examples
+                                st.markdown("**Correct Examples:**")
+                                for example in rule['correct_examples']:
+                                    st.markdown(f"- ✅ *{example}*")
+                                
+                                # Display incorrect examples
+                                st.markdown("**Incorrect Examples:**")
+                                for example in rule['incorrect_examples']:
+                                    st.markdown(f"- ❌ *{example}*")
                             
                     # Summary
                     st.success(f"Found {len(fixed_grammar['corrections'])} grammar issues to fix.")

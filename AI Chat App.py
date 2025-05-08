@@ -167,7 +167,7 @@ with col2:
 with col1:
     st.markdown(
         gradient_div(
-            "Image to Text",
+            "Paraphraser",
             "linear-gradient(to right, #11998e, #38ef7d)",
             "/Image_To_Text"
         ),
@@ -184,7 +184,7 @@ with col2:
         unsafe_allow_html=True
     )
 
-# Third row with Resume Maker and Voice Changer
+# Third row 
 with col1:
     st.markdown(
         gradient_div(
@@ -198,15 +198,15 @@ with col1:
 with col2:
     st.markdown(
         gradient_div(
-            "Voice Changer",
+            "Speaking Assistant",
             "linear-gradient(to right, #FF5F6D, #FFC371)",
-            "/Voice_AI"
+            "/Speaking_Assistant"
         ),
         unsafe_allow_html=True
     )
 
 
-# Fourth row with Plagiarism Checker
+# Fourth row 
 with col1:
     st.markdown(
         gradient_div(
@@ -217,6 +217,15 @@ with col1:
         unsafe_allow_html=True
     )
 
+with col2:
+    st.markdown(
+        gradient_div(
+            "Image to Text",
+            "linear-gradient(to right, #11998e, #38ef7d)",
+            "/Image_To_Text"
+        ),
+        unsafe_allow_html=True
+    )
 
 # Sidebar
 st.sidebar.title("Settings")
