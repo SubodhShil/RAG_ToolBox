@@ -265,10 +265,6 @@ if api_method == 'Freemium':
         update_llm(model)
     
     st.sidebar.write(f"Current model: {st.session_state.selected_llm}")
-    
-    # Display API endpoint information
-    st.sidebar.subheader("API Endpoint")
-    st.sidebar.code(f"http://localhost:8000/{st.session_state.selected_llm}/check_grammar")
 
 else:
     api_input = st.sidebar.text_input(
