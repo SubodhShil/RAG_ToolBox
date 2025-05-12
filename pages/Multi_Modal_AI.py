@@ -28,82 +28,93 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Archivo", sans-serif !important;
     font-family: "Sofia Sans", sans-serif !important;
 }
+
+.input-container {
+    position: fixed;
+    width: 50%;
+    left: 25%;
+    bottom: 50px; /* pushes input just above footer */
+    background-color: #262730;
+    border: 1px solid #FF4B4B;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9999;
+}
+
+.input-text {
+    width: 85%;
+    padding: 10px;
+    border: none;
+    background-color: #262730;
+    color: white;
+    font-size: 16px;
+}
+
+.input-button {
+    background-color: transparent;
+    border: none;
+    color: #FF4B4B;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.input-button:hover {
+    color: #ff7777;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 def create_qa_interface():
     st.title("Multi-Modal AI Question Answering")
-
-    # Configure page layout
-    st.markdown("""
-    <style>
-    .chat-container {
-        border-radius: 10px;
-        padding: 10px;
-        margin: 10px 0;
-    }
-    .user-message {
-        background-color: #e6f3ff;
-        text-align: right;
-    }
-    .assistant-message {
-        background-color: #f0f0f0;
-        text-align: left;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    # Actual input logic using Streamlit widgets
+    # Create a bottom fixed input bar with a submit button to the right
+    with st.container():
+        col1, col2 = st.columns([8, 1])
+        with col1:
+            user_input = st.text_input(
+                "",
+                placeholder="Ask a question about ...",
+                key="chat_input",
+                label_visibility="collapsed"
+            )
+        with col2:
+            submit = st.button("➤")
 
 
-    if 'messages' not in st.session_state:
-        st.session_state.messages = []
+    # Display response (simulate thinking for now)
+    if submit and user_input:
+        st.write(f"**You asked:** {user_input}")
+        with st.spinner("Thinking..."):
+            # Simulate response
+            st.success("Here's a sample answer based on the document.")
 
 
-    for message in st.session_state.messages:
-        role = message["role"]
-        content = message["content"]
-        with st.container():
-            st.markdown(f"""
-            <div class="chat-container {'user-message' if role == 'user' else 'assistant-message'}">
-                <b>{role.title()}:</b> {content}
-            </div>
-            """, unsafe_allow_html=True)
+footer = """
+<style>
 
-    # User input
-    user_question = st.text_input("Ask your question here:", key="user_input")
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #888;
+    padding: 10px;
+    text-align: right;
+    font-size: 14px;
+    z-index: 999;
+}
 
-    # Optional file upload
-    uploaded_file = st.file_uploader(
-        "Upload an image (optional)", type=['png', 'jpg', 'jpeg'])
+</style>
 
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Image", use_column_width=True)
-
-    # Send button
-    if st.button("Send"):
-        if user_question:
-            # Add user message to chat history
-            st.session_state.messages.append(
-                {"role": "user", "content": user_question})
-
-            # Here you would typically make an API call to your backend or AI model
-            # For demonstration, we'll just echo the question
-            response = f"This is a sample response to: {user_question}"
-
-            # Add assistant response to chat history
-            st.session_state.messages.append(
-                {"role": "assistant", "content": response})
-
-            # Clear the input
-            st.session_state.user_input = ""
-
-            # Rerun to update the chat display
-            st.experimental_rerun()
-
-    # Clear chat button
-    if st.button("Clear Chat"):
-        st.session_state.messages = []
-        st.experimental_rerun()
+<div class="footer">
+    Multi-Modal Chat | Created with ⚡ by Subodh Chandra Shil
+</div>
+"""
+st.markdown(footer, unsafe_allow_html=True)
 
 
 if __name__ == "__main__":

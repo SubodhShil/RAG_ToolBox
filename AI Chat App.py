@@ -276,3 +276,26 @@ else:
     
     if st.sidebar.button("Set API Key"):
         st.sidebar.success("API Key set successfully!")
+        
+footer = """
+<style>
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #888;
+    padding: 10px;
+    text-align: right;
+    font-size: 14px;
+    z-index: 999;
+}
+
+</style>
+
+<div class="footer">
+    RAG ToolBox | Created with ⚡ by <a href="">Subodh Chandra Shil</a> 
+</div>
+"""
+st.markdown(footer, unsafe_allow_html=True)
