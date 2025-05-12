@@ -10,7 +10,7 @@ user_text = st.text_area("Enter your text here:", height=150)
 def check_grammar(text, llm="gemini"):
     try:
         response = requests.post(
-            f"https://langchain-grammar-check-api.onrender.com/{llm}/check_grammar",
+            f"https://langchain-grammar-check-api.onrender.com/grammar/{llm}/check_grammar",
             # f"http://localhost:8000/{llm}/check_grammar",
             json={"text": text}
         )
