@@ -79,10 +79,17 @@ def generate_word_content(word):
         synonyms = [f"synonym1 of {word}", f"synonym2 of {word}", f"synonym3 of {word}"]
         antonyms = [f"antonym1 of {word}", f"antonym2 of {word}"]
         
+        # Generate more realistic incorrect options for multiple choice
+        incorrect_options = [
+            f"Alternative definition related to {word}",
+            f"Common misconception about {word}",
+            f"Definition of a word similar to {word}"
+        ]
+        
         # Quiz questions
         multiple_choice = {
             "question": f"Which of the following best describes '{word}'?",
-            "options": [meaning, "Incorrect meaning 1", "Incorrect meaning 2", "Incorrect meaning 3"],
+            "options": [meaning] + incorrect_options,
             "answer": 0  # Index of correct answer
         }
         
@@ -94,7 +101,7 @@ def generate_word_content(word):
         word_meaning_match = {
             "word": word,
             "meaning": meaning,
-            "decoys": [f"Fake meaning 1 for {word}", f"Fake meaning 2 for {word}"]
+            "decoys": [f"Definition of a word similar to {word}", f"Opposite meaning of {word}"]
         }
         
         # Visual hint (emoji)
@@ -348,18 +355,13 @@ elif st.session_state.current_mode == "learn":
             if word_index > 0:
                 if st.button("⬅️ Previous Word"):
                     st.session_state.current_word_index = word_index - 1
-                    st.experimental_rerun()
+                    st.rerun()
         
         with col2:
-            if st.button("🎮 Quiz Me"):
-                st.session_state.current_mode = "quiz"
-                st.experimental_rerun()
-        
-        with col3:
             if word_index < len(st.session_state.vocabulary_words) - 1:
                 if st.button("➡️ Next Word"):
                     st.session_state.current_word_index = word_index + 1
-                    st.experimental_rerun()
+                    st.rerun()
 
 # Quiz Mode
 elif st.session_state.current_mode == "quiz":
@@ -395,7 +397,7 @@ elif st.session_state.current_mode == "quiz":
             # Display options as radio buttons
             user_answer = st.radio("Select the correct answer:", options, index=None)
             
-            if st.button("Submit Answer"):
+            if st.button("Submit Answer", key="mc_submit"):
                 if user_answer:
                     if user_answer == correct_answer:
                         st.success("Correct! 🎉")
@@ -415,7 +417,7 @@ elif st.session_state.current_mode == "quiz":
             
             user_answer = st.text_input("Your answer:")
             
-            if st.button("Submit Answer"):
+            if st.button("Submit Answer", key="fitb_submit"):
                 if user_answer:
                     if user_answer.lower() == question["answer"].lower():
                         st.success("Correct! 🎉")
@@ -440,7 +442,7 @@ elif st.session_state.current_mode == "quiz":
             st.markdown(f"**Word:** {match_data['word']}")
             user_answer = st.radio("Select the correct meaning:", all_meanings, index=None)
             
-            if st.button("Submit Answer"):
+            if st.button("Submit Answer", key="wm_submit"):
                 if user_answer:
                     if user_answer == match_data["meaning"]:
                         st.success("Correct! 🎉")
@@ -458,14 +460,14 @@ elif st.session_state.current_mode == "quiz":
         with col1:
             if st.button("⬅️ Back to Learning"):
                 st.session_state.current_mode = "learn"
-                st.experimental_rerun()
+                st.rerun()
         
         with col2:
             if st.button("Next Word ➡️"):
                 # Move to the next word or wrap around
                 next_index = (st.session_state.current_word_index + 1) % len(st.session_state.vocabulary_words)
                 st.session_state.current_word_index = next_index
-                st.experimental_rerun()
+                st.rerun()
 
 # Revision Mode
 elif st.session_state.current_mode == "revise":
@@ -562,15 +564,15 @@ elif st.session_state.current_mode == "revise":
         
         with col1:
             if current_index > 0:
-                if st.button("⬅️ Previous Word"):
+                if st.button("⬅️ Previous Word", key="revise_prev_word"):
                     st.session_state.revision_index = current_index - 1
-                    st.experimental_rerun()
+                    st.rerun()
         
         with col2:
             if current_index < len(revision_words) - 1:
-                if st.button("Next Word ➡️"):
+                if st.button("Next Word ➡️", key="revise_next_word"):
                     st.session_state.revision_index = current_index + 1
-                    st.experimental_rerun()
+                    st.rerun()
 
 # Story Mode
 elif st.session_state.current_mode == "story":
@@ -597,7 +599,7 @@ elif st.session_state.current_mode == "story":
                 if st.checkbox(word, key=f"story_word_{i}"):
                     selected_words.append(word)
         
-        if st.button("Generate Story") and selected_words:
+        if st.button("Generate Story", key="generate_story_with_words") and selected_words:
             # Generate a story with the selected words
             story = generate_story(selected_words, theme.lower())
             
@@ -617,7 +619,7 @@ elif st.session_state.current_mode == "story":
             for word in selected_words:
                 update_progress(word, "story")
         
-        elif st.button("Generate Story") and not selected_words:
+        elif st.button("Generate Story", key="generate_story_no_words") and not selected_words:
             st.warning("Please select at least one word for your story.")
 
 # Daily Challenge Mode
@@ -755,10 +757,10 @@ if st.session_state.vocabulary_words:
     
     # Option to clear all data
     st.sidebar.markdown("---")
-    if st.sidebar.button("Reset All Data"):
+    if st.sidebar.button("Reset All Data", key="reset_all_data"):
         for key in list(st.session_state.keys()):
             del st.session_state[key]
-        st.experimental_rerun()
+        st.rerun()
 
 # Add a footer
 st.markdown("---")

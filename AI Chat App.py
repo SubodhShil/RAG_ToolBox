@@ -166,23 +166,13 @@ with col1:
 with col2:
     st.markdown(
         gradient_div(
-            "Multi-Modal AI Chat",
+            "AI Chat",
             "linear-gradient(to right, #2980B9, #6DD5FA)",
-            "/Multi_Modal_AI"
+            "/AI_Chat"
         ),
         unsafe_allow_html=True
     )
 
-# Third row 
-with col1:
-    st.markdown(
-        gradient_div(
-            "Resume Maker",
-            "linear-gradient(to right, #8E2DE2, #4A00E0)",
-            "/Resume_Maker"
-        ),
-        unsafe_allow_html=True
-    )
 
 
 # Fourth row 
@@ -192,6 +182,16 @@ with col1:
             "Plagiarism Checker",
             "linear-gradient(to right, #3A1C71, #D76D77)",
             "/Plagiarism_Checker"
+        ),
+        unsafe_allow_html=True
+    )
+
+with col1:
+    st.markdown(
+        gradient_div(
+            "Writing Challenge",
+            "linear-gradient(to right, #FF5F6D, #FFC371)",
+            "/Writing_Challenge"
         ),
         unsafe_allow_html=True
     )
@@ -212,12 +212,13 @@ st.sidebar.title("Settings")
 # Get all available pages
 pages = [
     "Grammar_Check", 
-    "Multi_Modal_AI", 
+    "AI_Chat", 
     "Paraphraser",
     "Resume_Maker", 
     "Speaking_Assistant", 
     "Plagiarism_Checker",
-    "Vocabulary_Learning"
+    "Vocabulary_Learning",
+    "Writing_Challenge"
 ]
 
 # API Methods section
