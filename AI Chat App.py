@@ -142,17 +142,6 @@ st.markdown("""
 # Create a 2-column layout
 col1, col2 = st.columns(2)
 
-# Place boxes in columns
-with col1:
-    st.markdown(
-        gradient_div(
-            "Generate AI Arts",
-            "linear-gradient(to right, #FF416C, #FF4B2B)",
-            "/AI_Art"
-        ),
-        unsafe_allow_html=True
-    )
-
 with col2:
     st.markdown(
         gradient_div(
@@ -195,16 +184,6 @@ with col1:
         unsafe_allow_html=True
     )
 
-with col2:
-    st.markdown(
-        gradient_div(
-            "Speaking Assistant",
-            "linear-gradient(to right, #FF5F6D, #FFC371)",
-            "/Speaking_Assistant"
-        ),
-        unsafe_allow_html=True
-    )
-
 
 # Fourth row 
 with col1:
@@ -220,9 +199,9 @@ with col1:
 with col2:
     st.markdown(
         gradient_div(
-            "Image to Video",
+            "Vocabulary Learning",
             "linear-gradient(to right, #11998e, #38ef7d)",
-            "/Image_To_Video"
+            "/Vocabulary_Learning"
         ),
         unsafe_allow_html=True
     )
@@ -232,13 +211,13 @@ st.sidebar.title("Settings")
 
 # Get all available pages
 pages = [
-    "AI_Art", 
     "Grammar_Check", 
-    "Image_To_Text", 
     "Multi_Modal_AI", 
+    "Paraphraser",
     "Resume_Maker", 
-    "Voice_AI", 
-    "Plagiarism_Checker"
+    "Speaking_Assistant", 
+    "Plagiarism_Checker",
+    "Vocabulary_Learning"
 ]
 
 # API Methods section
