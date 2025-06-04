@@ -169,7 +169,7 @@ with col1:
         gradient_div(
             "Paraphraser",
             "linear-gradient(to right, #11998e, #38ef7d)",
-            "/Image_To_Text"
+            "/Paraphraser"
         ),
         unsafe_allow_html=True
     )
@@ -220,9 +220,9 @@ with col1:
 with col2:
     st.markdown(
         gradient_div(
-            "Image to Text",
+            "Image to Video",
             "linear-gradient(to right, #11998e, #38ef7d)",
-            "/Image_To_Text"
+            "/Image_To_Video"
         ),
         unsafe_allow_html=True
     )
