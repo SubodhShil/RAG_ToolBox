@@ -206,6 +206,17 @@ with col2:
         unsafe_allow_html=True
     )
 
+# Fifth row
+with col1:
+    st.markdown(
+        gradient_div(
+            "Document Summarizer",
+            "linear-gradient(to right, #667eea, #764ba2)",
+            "/Document_Summarizer"
+        ),
+        unsafe_allow_html=True
+    )
+
 # Sidebar
 st.sidebar.title("Settings")
 
@@ -218,7 +229,8 @@ pages = [
     "Speaking_Assistant", 
     "Plagiarism_Checker",
     "Vocabulary_Learning",
-    "Writing_Challenge"
+    "Writing_Challenge",
+    "Document_Summarizer"
 ]
 
 # API Methods section
