@@ -174,7 +174,6 @@ with col2:
     )
 
 
-
 # Fourth row 
 with col1:
     st.markdown(
