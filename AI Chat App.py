@@ -198,23 +198,14 @@ with col1:
 with col2:
     st.markdown(
         gradient_div(
-            "Vocabulary Learning",
+            "Image Watermark Checking",
             "linear-gradient(to right, #11998e, #38ef7d)",
-            "/Vocabulary_Learning"
+            "/Image_watermark_checking"
         ),
         unsafe_allow_html=True
     )
 
-# Fifth row
-with col1:
-    st.markdown(
-        gradient_div(
-            "Document Summarizer",
-            "linear-gradient(to right, #667eea, #764ba2)",
-            "/Document_Summarizer"
-        ),
-        unsafe_allow_html=True
-    )
+# Fifth row has been removed as Document Summarizer page was deleted
 
 # Sidebar
 st.sidebar.title("Settings")
@@ -227,9 +218,8 @@ pages = [
     "Resume_Maker", 
     "Speaking_Assistant", 
     "Plagiarism_Checker",
-    "Vocabulary_Learning",
-    "Writing_Challenge",
-    "Document_Summarizer"
+    "Image_watermark_checking",
+    "Writing_Challenge"
 ]
 
 # API Methods section
